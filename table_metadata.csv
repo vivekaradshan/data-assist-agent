@@ -1,0 +1,34 @@
+Table Name,Column Name,Description,Data Type,Key
+Customers,customer_id,Unique identifier for each customer,INT,Primary Key
+Customers,name,Customer's full name,VARCHAR(255),
+Customers,email,Customer's email address,VARCHAR(255),
+Customers,phone_number,Contact number,VARCHAR(50),
+Orders,order_id,Unique order identifier,INT,Primary Key
+Orders,customer_id,Customer placing the order,INT,Foreign Key ? Customers.customer_id
+Orders,order_date,Date of order placement,DATE,
+Orders,total_amount,Total order value,"DECIMAL(10,2)",
+Products,product_id,Unique product identifier,INT,Primary Key
+Products,product_name,Name of the product,VARCHAR(255),
+Products,category,"Product category (GPU, accessories, etc.)",VARCHAR(100),
+Products,price,Product price,"DECIMAL(10,2)",
+Order_Items,order_item_id,Unique order item identifier,INT,Primary Key
+Order_Items,order_id,Associated order,INT,Foreign Key ? Orders.order_id
+Order_Items,product_id,Purchased product,INT,Foreign Key ? Products.product_id
+Order_Items,quantity,Number of units purchased,INT,
+Marketing_Campaigns,campaign_id,Unique marketing campaign ID,INT,Primary Key
+Marketing_Campaigns,campaign_name,Name of campaign,VARCHAR(255),
+Marketing_Campaigns,start_date,Start date of campaign,DATE,
+Marketing_Campaigns,end_date,End date of campaign,DATE,
+Campaign_Performance,campaign_id,Marketing campaign being tracked,INT,Foreign Key ? Marketing_Campaigns.campaign_id
+Campaign_Performance,impressions,Number of times an ad was displayed,INT,
+Campaign_Performance,clicks,Number of clicks received,INT,
+Campaign_Performance,conversions,Number of successful conversions,INT,
+Sales_Region,region_id,Unique region identifier,INT,Primary Key
+Sales_Region,region_name,Name of sales region,VARCHAR(255),
+Sales_Team,sales_rep_id,Unique sales rep ID,INT,Primary Key
+Sales_Team,name,Sales representative's name,VARCHAR(255),
+Sales_Team,region_id,Associated sales region,INT,Foreign Key ? Sales_Region.region_id
+Customer_Feedback,feedback_id,Unique feedback ID,INT,Primary Key
+Customer_Feedback,customer_id,Customer providing feedback,INT,Foreign Key ? Customers.customer_id
+Customer_Feedback,feedback_text,Text feedback,TEXT,
+Customer_Feedback,rating,Rating (1-5),INT,

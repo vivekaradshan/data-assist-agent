@@ -1,0 +1,236 @@
+{
+    "Customers": {
+        "columns": [
+            {
+                "name": "customer_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique identifier for each customer"
+            },
+            {
+                "name": "name",
+                "type": "VARCHAR(255)",
+                "key": null,
+                "description": "Customer's full name"
+            },
+            {
+                "name": "email",
+                "type": "VARCHAR(255)",
+                "key": null,
+                "description": "Customer's email address"
+            },
+            {
+                "name": "phone_number",
+                "type": "VARCHAR(50)",
+                "key": null,
+                "description": "Contact number"
+            }
+        ]
+    },
+    "Orders": {
+        "columns": [
+            {
+                "name": "order_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique order identifier"
+            },
+            {
+                "name": "customer_id",
+                "type": "INT",
+                "key": "Foreign Key ? Customers.customer_id",
+                "description": "Customer placing the order"
+            },
+            {
+                "name": "order_date",
+                "type": "DATE",
+                "key": null,
+                "description": "Date of order placement"
+            },
+            {
+                "name": "total_amount",
+                "type": "DECIMAL(10,2)",
+                "key": null,
+                "description": "Total order value"
+            }
+        ]
+    },
+    "Products": {
+        "columns": [
+            {
+                "name": "product_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique product identifier"
+            },
+            {
+                "name": "product_name",
+                "type": "VARCHAR(255)",
+                "key": null,
+                "description": "Name of the product"
+            },
+            {
+                "name": "category",
+                "type": "VARCHAR(100)",
+                "key": null,
+                "description": "Product category (GPU, accessories, etc.)"
+            },
+            {
+                "name": "price",
+                "type": "DECIMAL(10,2)",
+                "key": null,
+                "description": "Product price"
+            }
+        ]
+    },
+    "Order_Items": {
+        "columns": [
+            {
+                "name": "order_item_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique order item identifier"
+            },
+            {
+                "name": "order_id",
+                "type": "INT",
+                "key": "Foreign Key ? Orders.order_id",
+                "description": "Associated order"
+            },
+            {
+                "name": "product_id",
+                "type": "INT",
+                "key": "Foreign Key ? Products.product_id",
+                "description": "Purchased product"
+            },
+            {
+                "name": "quantity",
+                "type": "INT",
+                "key": null,
+                "description": "Number of units purchased"
+            }
+        ]
+    },
+    "Marketing_Campaigns": {
+        "columns": [
+            {
+                "name": "campaign_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique marketing campaign ID"
+            },
+            {
+                "name": "campaign_name",
+                "type": "VARCHAR(255)",
+                "key": null,
+                "description": "Name of campaign"
+            },
+            {
+                "name": "start_date",
+                "type": "DATE",
+                "key": null,
+                "description": "Start date of campaign"
+            },
+            {
+                "name": "end_date",
+                "type": "DATE",
+                "key": null,
+                "description": "End date of campaign"
+            }
+        ]
+    },
+    "Campaign_Performance": {
+        "columns": [
+            {
+                "name": "campaign_id",
+                "type": "INT",
+                "key": "Foreign Key ? Marketing_Campaigns.campaign_id",
+                "description": "Marketing campaign being tracked"
+            },
+            {
+                "name": "impressions",
+                "type": "INT",
+                "key": null,
+                "description": "Number of times an ad was displayed"
+            },
+            {
+                "name": "clicks",
+                "type": "INT",
+                "key": null,
+                "description": "Number of clicks received"
+            },
+            {
+                "name": "conversions",
+                "type": "INT",
+                "key": null,
+                "description": "Number of successful conversions"
+            }
+        ]
+    },
+    "Sales_Region": {
+        "columns": [
+            {
+                "name": "region_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique region identifier"
+            },
+            {
+                "name": "region_name",
+                "type": "VARCHAR(255)",
+                "key": null,
+                "description": "Name of sales region"
+            }
+        ]
+    },
+    "Sales_Team": {
+        "columns": [
+            {
+                "name": "sales_rep_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique sales rep ID"
+            },
+            {
+                "name": "name",
+                "type": "VARCHAR(255)",
+                "key": null,
+                "description": "Sales representative's name"
+            },
+            {
+                "name": "region_id",
+                "type": "INT",
+                "key": "Foreign Key ? Sales_Region.region_id",
+                "description": "Associated sales region"
+            }
+        ]
+    },
+    "Customer_Feedback": {
+        "columns": [
+            {
+                "name": "feedback_id",
+                "type": "INT",
+                "key": "Primary Key",
+                "description": "Unique feedback ID"
+            },
+            {
+                "name": "customer_id",
+                "type": "INT",
+                "key": "Foreign Key ? Customers.customer_id",
+                "description": "Customer providing feedback"
+            },
+            {
+                "name": "feedback_text",
+                "type": "TEXT",
+                "key": null,
+                "description": "Text feedback"
+            },
+            {
+                "name": "rating",
+                "type": "INT",
+                "key": null,
+                "description": "Rating (1-5)"
+            }
+        ]
+    }
+}
