@@ -21,12 +21,7 @@ for tbl_nm in table_list:
     # data=cursor.execute(f"select count(*) from {tbl_nm}")
     # for row in data:
     #     print(f"{tbl_nm} : {row[0]} records")
-    data=cursor.execute(f"""SELECT p.product_name, AVG(cf.rating) AS average_rating
-FROM Customer_Feedback cf
-JOIN Customers c ON cf.customer_id = c.customer_id
-JOIN Products p ON c.product_id = p.product_id
-GROUP BY p.product_name;
-""")
+    data=cursor.execute(f"""SELECT mc.campaign_name, CAST(cp.conversions AS REAL) / cp.clicks AS conversion_rate FROM Marketing_Campaigns mc JOIN Campaign_Performance cp ON mc.campaign_id = cp.campaign_id WHERE cp.clicks > 0 ORDER BY conversion_rate DESC LIMIT 3;""")
     for row in data:
         print(f"{row}")    
     
