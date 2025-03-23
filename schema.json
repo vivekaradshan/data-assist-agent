@@ -108,6 +108,12 @@
                 "type": "INT",
                 "key": null,
                 "description": "Number of units purchased"
+            },
+            {
+                "name": "region_id",
+                "type": "INT",
+                "key": "Foreign Key ? Sales_Region.region_id",
+                "description": "Sales region of the order item"
             }
         ]
     },

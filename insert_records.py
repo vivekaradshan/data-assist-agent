@@ -10,7 +10,8 @@ db_name = "nvidia_sales.db"
 conn = sqlite3.connect(db_name)
 cursor = conn.cursor()
 
-# Create Tables with Foreign Keys
+
+# Recreate Tables with Foreign Keys
 cursor.executescript("""
     CREATE TABLE IF NOT EXISTS Customers (
         customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,8 +53,10 @@ cursor.executescript("""
         order_id INTEGER NOT NULL,
         product_id INTEGER NOT NULL,
         quantity INTEGER NOT NULL,
+        region_id INTEGER NOT NULL,
         FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-        FOREIGN KEY (product_id) REFERENCES Products(product_id)
+        FOREIGN KEY (product_id) REFERENCES Products(product_id),
+        FOREIGN KEY (region_id) REFERENCES Sales_Region(region_id)
     );
 
     CREATE TABLE IF NOT EXISTS Marketing_Campaigns (
@@ -91,7 +94,7 @@ cursor.executescript("""
 
 # 1. Insert Sales Regions
 regions = ["North America", "Europe", "Asia", "South America", "Australia"]
-cursor.executemany("INSERT INTO Sales_Region (region_name) VALUES (?)", [(r,) for r in regions])
+cursor.executemany("INSERT OR IGNORE INTO Sales_Region (region_name) VALUES (?)", [(r,) for r in regions])
 
 # 2. Insert Customers
 customers = []
@@ -144,8 +147,9 @@ for _ in range(1000):
     order_id = random.choice(order_ids)
     product_id = random.choice(product_ids)
     quantity = random.randint(1, 5)
-    order_items.append((order_id, product_id, quantity))
-cursor.executemany("INSERT INTO Order_Items (order_id, product_id, quantity) VALUES (?, ?, ?)", order_items)
+    region_id = random.choice(region_ids)  # Associate each order item with a sales region
+    order_items.append((order_id, product_id, quantity, region_id))
+cursor.executemany("INSERT INTO Order_Items (order_id, product_id, quantity, region_id) VALUES (?, ?, ?, ?)", order_items)
 
 # 7. Insert Marketing Campaigns
 campaigns = []
@@ -176,4 +180,4 @@ cursor.executemany("INSERT INTO Sales_Team_Assignments (sales_rep_id, customer_i
 conn.commit()
 conn.close()
 
-print("✅ Successfully inserted sample data into the database!")
+print("✅ Successfully updated the database!")
